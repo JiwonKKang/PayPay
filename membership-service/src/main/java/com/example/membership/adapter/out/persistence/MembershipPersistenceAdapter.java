@@ -1,12 +1,11 @@
 package com.example.membership.adapter.out.persistence;
 
+import com.example.common.PersistenceAdapter;
 import com.example.membership.application.port.out.FindMembershipPort;
 import com.example.membership.application.port.out.RegisterMembershipPort;
-import com.example.membership.domain.Membership;
-import common.PersistenceAdapter;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
-import javax.persistence.EntityNotFoundException;
 
 import static com.example.membership.domain.Membership.*;
 

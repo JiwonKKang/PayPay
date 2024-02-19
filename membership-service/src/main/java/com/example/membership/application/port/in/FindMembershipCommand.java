@@ -1,11 +1,11 @@
 package com.example.membership.application.port.in;
 
-import common.SelfValidating;
+import com.example.common.SelfValidating;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.validation.constraints.NotNull;
 
 
 @Builder
