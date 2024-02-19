@@ -1,9 +1,9 @@
 package com.example.membership.adapter.in.web;
 
+import com.example.common.WebAdapter;
 import com.example.membership.application.port.in.FindMembershipCommand;
 import com.example.membership.application.port.in.FindMembershipUseCase;
 import com.example.membership.domain.Membership;
-import common.WebAdapter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
