@@ -16,7 +16,7 @@ public class RequestedFirmBanking {
     private final String toBankName;
     private final String toBankAccountNumber;
     private final Long moneyAmount;
-    private final int firmBankingStatus; // 0: 요청 중, 1: 요청 완료, 2: 요청 실패
+    private int firmBankingStatus; // 0: 요청 중, 1: 요청 완료, 2: 요청 실패
     private final UUID uuid;
 
     public static RequestedFirmBanking generateRequestedFirmBanking(
@@ -90,29 +90,11 @@ public class RequestedFirmBanking {
                 .build();
     }
 
-    public RequestedFirmBanking updateFirmBankingStatusToComplete() {
-        return new RequestedFirmBanking(
-                this.requestedFirmBankingId,
-                this.fromBankName,
-                this.fromBankAccountNumber,
-                this.toBankName,
-                this.toBankAccountNumber,
-                this.moneyAmount,
-                1, // 요청 완료 상태로 업데이트
-                this.uuid
-        );
+    public void updateFirmBankingStatusToComplete() {
+        this.firmBankingStatus = 1; // 요청 완료 상태로 업데이트
     }
 
-    public RequestedFirmBanking updateFirmBankingStatusToFail() {
-        return new RequestedFirmBanking(
-                this.requestedFirmBankingId,
-                this.fromBankName,
-                this.fromBankAccountNumber,
-                this.toBankName,
-                this.toBankAccountNumber,
-                this.moneyAmount,
-                2, // 요청 실패 상태로 업데이트
-                this.uuid
-        );
+    public void updateFirmBankingStatusToFail() {
+        this.firmBankingStatus = 2; // 요청 실패 상태로 업데이트
     }
 }

@@ -7,8 +7,8 @@ public class FirmBankingResult {
 
     private final int resultCode; // 0 : 성공, 1 : 실패
 
-    public boolean isFailed() {
-        return resultCode == 1;
+    public boolean isSuccess() {
+        return resultCode == 0;
     }
 
 }
