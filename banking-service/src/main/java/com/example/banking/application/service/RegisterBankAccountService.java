@@ -10,6 +10,7 @@ import com.example.banking.application.port.out.RequestBankAccountInfoPort;
 import com.example.banking.domain.RegisteredBankAccount;
 import com.example.common.UseCase;
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
 @UseCase
 @RequiredArgsConstructor
@@ -19,6 +20,7 @@ public class RegisterBankAccountService implements RegisterBankAccountUseCase {
     private final RequestBankAccountInfoPort requestBankAccountInfoPort;
 
     @Override
+    @Transactional
     public RegisteredBankAccountResponse registerBankAccount(RegisterBankAccountCommand command) {
 
         if (isRegisterBankAccountNotAvailable(command)) {
@@ -41,7 +43,7 @@ public class RegisterBankAccountService implements RegisterBankAccountUseCase {
     private boolean isRegisterBankAccountNotAvailable(RegisterBankAccountCommand command) {
         BankAccount bankAccountInfo = requestBankAccountInfoPort
                 .getBankAccountInfo(GetBankAccountInfoRequest.from(command.getBankName(), command.getBankAccountNumber()));
-        
+
         boolean existsRegisteredBankAccount = registerBankAccountPort.existsRegisteredBankAccount(command.getMembershipId());
 
         return !bankAccountInfo.isValid() || existsRegisteredBankAccount;
