@@ -47,7 +47,7 @@ public class RequestedFirmBankingCommand extends SelfValidating<RequestedFirmBan
                 RequestedFirmBanking.ToBankAccountNumber.from(this.toBankAccountNumber),
                 RequestedFirmBanking.MoneyAmount.from(this.moneyAmount),
                 RequestedFirmBanking.FirmBankingStatus.from(0),
-                UUID.randomUUID()
+                UUID.randomUUID().toString()
         );
     }
 

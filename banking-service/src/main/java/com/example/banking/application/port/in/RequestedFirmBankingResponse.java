@@ -18,7 +18,7 @@ public class RequestedFirmBankingResponse {
     private final String toBankAccountNumber;
     private final Long moneyAmount;
     private final int firmBankingStatus; // 0: 요청 중, 1: 요청 완료, 2: 요청 실패
-    private final UUID uuid;
+    private final String uuid;
 
     public static RequestedFirmBankingResponse success(RequestedFirmBanking domain) {
         return new RequestedFirmBankingResponse(

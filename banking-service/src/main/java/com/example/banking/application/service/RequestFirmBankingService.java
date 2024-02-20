@@ -1,7 +1,6 @@
 package com.example.banking.application.service;
 
 
-import com.example.banking.adapter.out.external.bank.ExternalFirmBankingRequest;
 import com.example.banking.adapter.out.external.bank.FirmBankingResult;
 import com.example.banking.application.port.in.RequestFirmBankingUseCase;
 import com.example.banking.application.port.in.RequestedFirmBankingCommand;

@@ -17,7 +17,7 @@ public class RequestedFirmBanking {
     private final String toBankAccountNumber;
     private final Long moneyAmount;
     private int firmBankingStatus; // 0: 요청 중, 1: 요청 완료, 2: 요청 실패
-    private final UUID uuid;
+    private final String uuid;
 
     public static RequestedFirmBanking generateRequestedFirmBanking(
             RequestedFirmBankingId requestedFirmBankingId,
@@ -27,7 +27,7 @@ public class RequestedFirmBanking {
             ToBankAccountNumber toBankAccountNumber,
             MoneyAmount moneyAmount,
             FirmBankingStatus firmBankingStatus,
-            UUID uuid) {
+            String uuid) {
 
         return new RequestedFirmBanking(
                 requestedFirmBankingId.requestedFirmBankingId,
