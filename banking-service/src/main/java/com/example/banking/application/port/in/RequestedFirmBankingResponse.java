@@ -20,29 +20,16 @@ public class RequestedFirmBankingResponse {
     private final int firmBankingStatus; // 0: 요청 중, 1: 요청 완료, 2: 요청 실패
     private final String uuid;
 
-    public static RequestedFirmBankingResponse success(RequestedFirmBanking domain) {
+    public static RequestedFirmBankingResponse from(RequestedFirmBanking requestedFirmBanking) {
         return new RequestedFirmBankingResponse(
-                domain.getRequestedFirmBankingId(),
-                domain.getFromBankName(),
-                domain.getFromBankAccountNumber(),
-                domain.getToBankName(),
-                domain.getToBankAccountNumber(),
-                domain.getMoneyAmount(),
-                1,
-                domain.getUuid()
-        );
-    }
-
-    public static RequestedFirmBankingResponse fail(RequestedFirmBanking domain) {
-        return new RequestedFirmBankingResponse(
-                domain.getRequestedFirmBankingId(),
-                domain.getFromBankName(),
-                domain.getFromBankAccountNumber(),
-                domain.getToBankName(),
-                domain.getToBankAccountNumber(),
-                domain.getMoneyAmount(),
-                2,
-                domain.getUuid()
+                requestedFirmBanking.getRequestedFirmBankingId(),
+                requestedFirmBanking.getFromBankName(),
+                requestedFirmBanking.getFromBankAccountNumber(),
+                requestedFirmBanking.getToBankName(),
+                requestedFirmBanking.getToBankAccountNumber(),
+                requestedFirmBanking.getMoneyAmount(),
+                requestedFirmBanking.getFirmBankingStatus(),
+                requestedFirmBanking.getUuid()
         );
     }
 }

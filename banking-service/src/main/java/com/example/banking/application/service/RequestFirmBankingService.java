@@ -30,9 +30,15 @@ public class RequestFirmBankingService implements RequestFirmBankingUseCase {
         FirmBankingResult firmBankingResult =
                 requestExternalFirmBankingPort.requestExternalFirmBanking(requestedFirmBanking.toExternalFirmBankingRequest());
 
-        return firmBankingResult.isSuccess() ?
-                RequestedFirmBankingResponse.success(requestedFirmBanking) :
-                RequestedFirmBankingResponse.fail(requestedFirmBanking);
+
+        if (firmBankingResult.isSuccess()) {
+            requestedFirmBanking.updateFirmBankingStatusToComplete();
+        } else {
+            requestedFirmBanking.updateFirmBankingStatusToFail();
+        }
+
+        requestFirmBankingPort.updateRequestedFirmBanking(requestedFirmBanking);
+        return RequestedFirmBankingResponse.from(requestedFirmBanking);
     }
 
 }

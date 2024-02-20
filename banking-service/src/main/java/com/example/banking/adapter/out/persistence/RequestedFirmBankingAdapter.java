@@ -4,9 +4,6 @@ import com.example.banking.application.port.out.RequestFirmBankingPort;
 import com.example.banking.domain.RequestedFirmBanking;
 import com.example.common.PersistenceAdapter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestBody;
-
-import java.util.UUID;
 
 @PersistenceAdapter
 @RequiredArgsConstructor
@@ -23,9 +20,8 @@ public class RequestedFirmBankingAdapter implements RequestFirmBankingPort {
     }
 
     @Override
-    public RequestedFirmBanking updateRequestedFirmBanking(RequestedFirmBanking requestedFirmBanking) {
+    public void updateRequestedFirmBanking(RequestedFirmBanking requestedFirmBanking) {
         RequestedFirmBankingJpaEntity jpaEntity = requestedFirmBankingMapper.toJpaEntity(requestedFirmBanking);
-        RequestedFirmBankingJpaEntity res = requestedFirmBankingRepository.save(jpaEntity);
-        return requestedFirmBankingMapper.toDomainEntity(res);
+        requestedFirmBankingRepository.save(jpaEntity);
     }
 }
