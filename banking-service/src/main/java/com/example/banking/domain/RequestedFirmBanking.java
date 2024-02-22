@@ -4,8 +4,6 @@ import com.example.banking.adapter.out.external.bank.ExternalFirmBankingRequest;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.util.UUID;
-
 @AllArgsConstructor
 @Getter
 public class RequestedFirmBanking {
@@ -90,11 +88,11 @@ public class RequestedFirmBanking {
                 .build();
     }
 
-    public void updateFirmBankingStatusToComplete() {
+    public void updateStatusToComplete() {
         this.firmBankingStatus = 1; // 요청 완료 상태로 업데이트
     }
 
-    public void updateFirmBankingStatusToFail() {
+    public void updateStatusToFail() {
         this.firmBankingStatus = 2; // 요청 실패 상태로 업데이트
     }
 }

@@ -32,9 +32,9 @@ public class RequestFirmBankingService implements RequestFirmBankingUseCase {
 
 
         if (firmBankingResult.isSuccess()) {
-            requestedFirmBanking.updateFirmBankingStatusToComplete();
+            requestedFirmBanking.updateStatusToComplete();
         } else {
-            requestedFirmBanking.updateFirmBankingStatusToFail();
+            requestedFirmBanking.updateStatusToFail();
         }
 
         requestFirmBankingPort.updateRequestedFirmBanking(requestedFirmBanking);
