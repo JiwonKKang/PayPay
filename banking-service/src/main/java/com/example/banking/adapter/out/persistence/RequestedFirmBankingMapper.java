@@ -11,6 +11,7 @@ public class RequestedFirmBankingMapper {
     public RequestedFirmBankingJpaEntity
     toJpaEntity(RequestedFirmBanking requestedFirmBanking) {
         return RequestedFirmBankingJpaEntity.builder()
+                .id(requestedFirmBanking.getRequestedFirmBankingId())
                 .fromBankName(requestedFirmBanking.getFromBankName())
                 .fromBankAccountNumber(requestedFirmBanking.getFromBankAccountNumber())
                 .toBankName(requestedFirmBanking.getToBankName())

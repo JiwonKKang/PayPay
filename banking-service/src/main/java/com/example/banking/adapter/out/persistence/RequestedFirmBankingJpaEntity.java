@@ -36,13 +36,15 @@ public class RequestedFirmBankingJpaEntity {
     private String uuid;
 
     @Builder
-    public RequestedFirmBankingJpaEntity(String fromBankName,
+    public RequestedFirmBankingJpaEntity(Long id,
+                                         String fromBankName,
                                          String fromBankAccountNumber,
                                          String toBankName,
                                          String toBankAccountNumber,
                                          Long moneyAmount,
                                          int firmBankingStatus,
                                          String uuid) {
+        this.id = id;
         this.fromBankName = fromBankName;
         this.fromBankAccountNumber = fromBankAccountNumber;
         this.toBankName = toBankName;
