@@ -1,7 +1,9 @@
 package com.example.money.applicaiton.service;
 
-import com.example.common.UseCase;
+import com.example.common.*;
 import com.example.money.applicaiton.port.in.ChangeMoneyCommand;
+import com.example.money.applicaiton.port.out.SendRechargingMoneyTaskPort;
+import com.example.money.config.CountDownLatchManager;
 import com.example.money.domain.MemberMoney;
 import lombok.RequiredArgsConstructor;
 import com.example.money.adapter.in.web.MoneyChangingResponse;
@@ -11,15 +13,48 @@ import com.example.money.domain.MoneyChangingHistory;
 import com.example.money.domain.enums.MoneyChangingStatus;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.UUID;
+
 @UseCase
 @RequiredArgsConstructor
 public class ChangeMoneyService implements ChangeMoneyUseCase {
 
     private final ChangeMoneyPort changeMoneyPort;
+    private final SendRechargingMoneyTaskPort sendRechargingMoneyTaskPort;
+    private final CountDownLatchManager countDownLatchManager;
+
 
     @Override
     @Transactional
     public MoneyChangingResponse changeMoney(ChangeMoneyCommand command) {
+        String RECHARGING_MONEY_TASK = "rechargingMoneyTask";
+        countDownLatchManager.addCountDownLatch(RECHARGING_MONEY_TASK);
+
+        SubTask validateMembershipIdTask = SubTask.builder()
+                .subTaskName("validateMembershipId")
+                .membershipId(command.getTargetMembershipId())
+                .taskType(TaskType.MEMBERSHIP)
+                .status(TaskStatus.READY)
+                .build();
+
+        SubTask validateBankingTask = SubTask.builder()
+                .subTaskName("validateBanking")
+                .membershipId(command.getTargetMembershipId())
+                .taskType(TaskType.BANKING)
+                .status(TaskStatus.READY)
+                .build();
+
+        RechargingMoneyTask task = RechargingMoneyTask.builder()
+                .taskId(UUID.randomUUID().toString())
+                .taskName(RECHARGING_MONEY_TASK)
+                .subTaskList(List.of(validateMembershipIdTask, validateBankingTask))
+                .moneyAmount(command.getChangingAmount())
+                .membershipId(command.getTargetMembershipId())
+                .toBankName("fastcampus") // 법인 계좌 은행 이름
+                .build();
+
+        sendRechargingMoneyTaskPort.sendRechargingMoneyTask(task);
 
         return switch (command.getChangingType()) {
             case INCREASE -> increaseMoney(command);
@@ -28,14 +63,6 @@ public class ChangeMoneyService implements ChangeMoneyUseCase {
     }
 
     private MoneyChangingResponse increaseMoney(ChangeMoneyCommand command) {
-
-        // 머니의 충전.증액이라는 과정
-        // 1. 고객 정보가 정상인지 확인 (멤버)
-
-        // 2. 고객의 연동된 계좌가 있는지, 고객의 연동된 계좌의 잔액이 충분한지도 확인 (뱅킹)
-
-        // 3. 법인 계좌 상태도 정상인지 확인 (뱅킹)
-
         // 4. 증액을 위한 "기록". 요청 상태로 MoneyChangingRequest 를 생성한다. (MoneyChangingRequest)
         MoneyChangingHistory moneyChangingHistory = changeMoneyPort.createMoneyChangingHistory(command.toDomain());
 

@@ -1,16 +1,15 @@
-package com.example.money;
+package com.example.taskConsumer;
 
-import com.example.money.config.KafkaProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 @SpringBootApplication
 @EnableConfigurationProperties(value = KafkaProperties.class)
-public class MoneyApplication {
+public class TaskConsumerApplication {
 
     public static void main(String[] arg) {
-        SpringApplication.run(MoneyApplication.class, arg);
+        SpringApplication.run(TaskConsumerApplication.class, arg);
     }
 
 }
