@@ -4,6 +4,6 @@ import com.example.money.adapter.in.web.MoneyChangingResponse;
 
 public interface ChangeMoneyUseCase {
 
-    MoneyChangingResponse changeMoney(ChangeMoneyCommand command);
+    void changeMoney(ChangeMoneyCommand command);
 
 }

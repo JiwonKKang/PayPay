@@ -8,7 +8,6 @@ public class MemberMoneyMapper {
 
     public MemberMoneyJpaEntity toJpaEntity(MemberMoney memberMoney) {
         return MemberMoneyJpaEntity.builder()
-                .id(memberMoney.getMemberMoneyId())
                 .membershipId(memberMoney.getMembershipId())
                 .balance(memberMoney.getBalance())
                 .build();
@@ -18,6 +17,7 @@ public class MemberMoneyMapper {
         return MemberMoney.generateMemberMoney(
                 MemberMoney.MemberMoneyId.from(jpaEntity.getId()),
                 MemberMoney.MembershipId.from(jpaEntity.getMembershipId()),
+                MemberMoney.AggregateIdentifier.from(jpaEntity.getAggregateIdentifier()),
                 MemberMoney.Balance.from(jpaEntity.getBalance())
         );
     }
