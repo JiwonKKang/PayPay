@@ -3,6 +3,7 @@ package com.example.money.domain;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.springframework.beans.factory.annotation.Value;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
@@ -10,16 +11,19 @@ public class MemberMoney {
 
     private final Long memberMoneyId;
     private final Long membershipId;
+    private final String aggregateIdentifier;
     private int balance;
 
     public static MemberMoney generateMemberMoney(
             MemberMoney.MemberMoneyId memberMoneyId,
             MemberMoney.MembershipId membershipId,
+            MemberMoney.AggregateIdentifier aggregateIdentifier,
             MemberMoney.Balance balance
             ) {
         return new MemberMoney(
                 memberMoneyId.memberMoneyId,
                 membershipId.membershipId,
+                aggregateIdentifier.aggregateIdentifier,
                 balance.balance
         );
     }
@@ -41,6 +45,11 @@ public class MemberMoney {
     @AllArgsConstructor(staticName = "from")
     public static class Balance {
         int balance;
+    }
+
+    @AllArgsConstructor(staticName = "from")
+    public static class AggregateIdentifier {
+        String aggregateIdentifier;
     }
 
     public void increaseBalance(int amount) {
